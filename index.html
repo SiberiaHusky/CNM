@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>新中国特色单位换算器 Chinese-specific Network Measurement</title>
+    <link rel="icon" href="/favicon.ico">
+    <style>
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .converter-box {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            align-items: center;
+        }
+        input, select, button {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #c00;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #a00;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        .unit-definition {
+            margin-top: 30px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>新中国特色单位换算器</h2>
+        <p>China-specific Network Measurement</p>
+        <div class="converter-box">
+            <input type="number" id="inputValue" placeholder="输入数值">
+            <select id="fromUnit">
+                <option value="2300000">钿</option>
+                <option value="79">李</option>
+                <option value="160000000">爽</option>
+                <option value="640000000">爽年</option>
+                <option value="2080000">爽日</option>
+                <option value="2.5">坤</option>
+            </select>
+            <span>转换为</span>
+            <select id="toUnit">
+                <option value="160000000">爽</option>
+                <option value="2300000">钿</option>
+                <option value="79">李</option>
+                <option value="640000000">爽年</option>
+                <option value="2080000">爽日</option>
+                <option value="2.5">坤</option>
+            </select>
+            <button onclick="calculate()">换算</button>
+        </div>
+        <div id="result"></div>
+        
+        <div class="unit-definition">
+            <h3>单位定义：</h3>
+            <ul>
+                <li>1钿 = 230万元</li>
+                <li>1李 = 79元</li>
+                <li>1爽 = 1.6亿元</li>
+                <li>1爽年 = 6.4亿元</li>
+                <li>1爽日 = 208万元</li>
+                <li>1坤 = 2.5年</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div>
+        <p>本项目已在 <a href="https://github.com/siberiahusky/cnm" target="_blank">GitHub</a> 开源</p>
+        <p>由<a href="https://hooskai.top/" target="_blank">胡斯凯</a>使用大语言模型制作</p>
+    </div>
+
+    <script>
+        function calculate() {
+            const inputValue = parseFloat(document.getElementById('inputValue').value);
+            const fromUnit = parseFloat(document.getElementById('fromUnit').value);
+            const toUnit = parseFloat(document.getElementById('toUnit').value);
+            
+            if (isNaN(inputValue)) {
+                alert("请输入有效数字");
+                return;
+            }
+
+            const result = (inputValue * fromUnit) / toUnit;
+            const fromUnitName = document.getElementById('fromUnit').options[document.getElementById('fromUnit').selectedIndex].text;
+            const toUnitName = document.getElementById('toUnit').options[document.getElementById('toUnit').selectedIndex].text;
+
+            document.getElementById('result').innerHTML = `
+                ${inputValue.toLocaleString()} ${fromUnitName} = 
+                <strong>${result.toLocaleString(undefined, { maximumFractionDigits: 4 })}</strong> ${toUnitName}
+            `;
+        }
+    </script>
+</body>
+</html>
